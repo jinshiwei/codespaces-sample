@@ -1,14 +1,13 @@
 from diffusers import UNet2DModel
 
 import torch
-
-import PIL.Image
+from PIL import Image
 import numpy as np
 
 from diffusers import DDPMScheduler
 
 import tqdm
-
+from IPython.display import display
 
 repo_id = "google/ddpm-cat-256"
 model = UNet2DModel.from_pretrained(repo_id, use_safetensors=True)
@@ -26,10 +25,8 @@ def display_sample(sample, i):
     image_processed = sample.cpu().permute(0, 2, 3, 1)
     image_processed = (image_processed + 1.0) * 127.5
     image_processed = image_processed.numpy().astype(np.uint8)
-    image_pil = PIL.Image.fromarray(image_processed[0])
-    #display(f"Image at step {i}")
-    #display(image_pil)
-    image_pil.show()
+    image_pil = Image.fromarray(image_processed[0])
+    display(image_pil)
 
 model.to("cuda")
 noisy_sample = noisy_sample.to("cuda")
