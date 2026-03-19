@@ -31,8 +31,8 @@ def display_sample(sample, i):
     #display(image_pil)
     image_pil.show()
 
-model.to("mps")
-noisy_sample = noisy_sample.to("mps")
+model.to("cuda")
+noisy_sample = noisy_sample.to("cuda")
 
 
 sample = noisy_sample
